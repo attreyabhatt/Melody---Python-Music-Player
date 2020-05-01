@@ -20,6 +20,8 @@ root.set_theme("radiance")         # Sets an available theme
 #
 # Styles - normal, bold, roman, italic, underline, and overstrike.
 
+v=DoubleVar() # For getting the current volume
+
 statusbar = ttk.Label(root, text="Welcome to Melody", relief=SUNKEN, anchor=W, font='Times 10 italic')
 statusbar.pack(side=BOTTOM, fill=X)
 
@@ -201,12 +203,15 @@ muted = FALSE
 
 def mute_music():
     global muted
+    global cv # have current volume
     if muted:  # Unmute the music
-        mixer.music.set_volume(0.7)
+        y = cv/ 100
+        mixer.music.set_volume(y)
         volumeBtn.configure(image=volumePhoto)
-        scale.set(70)
+        scale.set(cv)
         muted = FALSE
     else:  # mute the music
+        cv = v.get() # taking current volume before muting 
         mixer.music.set_volume(0)
         volumeBtn.configure(image=mutePhoto)
         scale.set(0)
@@ -242,7 +247,7 @@ volumePhoto = PhotoImage(file='images/volume.png')
 volumeBtn = ttk.Button(bottomframe, image=volumePhoto, command=mute_music)
 volumeBtn.grid(row=0, column=1)
 
-scale = ttk.Scale(bottomframe, from_=0, to=100, orient=HORIZONTAL, command=set_vol)
+scale = ttk.Scale(bottomframe, from_=0, to=100,variable=v,orient=HORIZONTAL, command=set_vol)
 scale.set(70)  # implement the default value of scale when music player starts
 mixer.music.set_volume(0.7)
 scale.grid(row=0, column=2, pady=15, padx=30)
