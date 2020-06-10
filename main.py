@@ -70,7 +70,10 @@ subMenu.add_command(label="About Us", command=about_us)
 mixer.init()  # initializing the mixer
 
 root.title("Melody")
-root.iconbitmap(r'images/melody.ico')
+try:
+    root.iconbitmap("r'images/melody.ico")
+except:
+    print("icon loading error")
 
 # Root Window - StatusBar, LeftFrame, RightFrame
 # LeftFrame - The listbox (playlist)
