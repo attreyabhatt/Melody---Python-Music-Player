@@ -1,0 +1,4 @@
+mutagen==1.44.0
+Pillow==7.1.2
+pygame==1.9.6
+ttkthemes==3.0.0
